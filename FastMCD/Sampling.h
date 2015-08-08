@@ -15,11 +15,12 @@ public:
 	Sampling(MatrixXd m);
 
 	MatrixXd addSample(MatrixXd sample);
+    MatrixXd randomSample();
 	//double Qn(VectorXd& y);
 	//VectorXd calculateQn();
 	~Sampling (){};
 private:
-	MatrixXd randomSample();
+
 
 
 };

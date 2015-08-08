@@ -19,7 +19,7 @@ public:
     //MatrixXd eigenVector(MatrixXd *value);
     MatrixXd diagonal(MatrixXd b, double qn);
     VectorXd distance(MatrixXd sample);
-    MatrixXd Cstep(VectorXd distance, VectorXi indexes);
+    pair<MatrixXd, VectorXi> Cstep(VectorXd distance, VectorXi indexes);
     ~Calculations();
     
 };

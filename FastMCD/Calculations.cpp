@@ -52,7 +52,7 @@ VectorXd Calculations::distance(MatrixXd sample) {
     return distance;
 }
 
-MatrixXd Calculations::Cstep(VectorXd d, VectorXi indexes) {
+pair<MatrixXd, VectorXi> Calculations::Cstep(VectorXd d, VectorXi indexes) {
     int h = (int) (0.75 * d.size());
     //int k = (int) (d.rows() - 1);
     //nth_element(d.data(), d.data()+k, d.data()+d.size());
@@ -68,13 +68,22 @@ MatrixXd Calculations::Cstep(VectorXd d, VectorXi indexes) {
     }
     sort(vec.begin(), vec.end());
     
+    // Construct result matrix (index convert to real data)
     MatrixXd res(h, data.cols());
     for (int i = 0; i < h; ++i) {
         for (int j = 0; j < data.cols(); ++j){
             res(i,j) = data(vec[i].index, j);
         }
     }
-    return res;
+    
+    // Construct result index vector;
+    for (int i = 0; i < h; ++i) {
+        indexes(i) = vec[i].index;
+    }
+    
+    pair<MatrixXd, VectorXi> resultPair(res, indexes);
+    // return matrix of (pi(1), pi(2), pi(3)....pi(h))
+    return resultPair;
 }
 
 

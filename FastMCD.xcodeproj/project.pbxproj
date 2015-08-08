@@ -11,6 +11,7 @@
 		A0F28F4D1B75CFCD0006620D /* Calculations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0F28F451B75CFCD0006620D /* Calculations.cpp */; };
 		A0F28F4F1B75CFCD0006620D /* Sampling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0F28F491B75CFCD0006620D /* Sampling.cpp */; };
 		A0F28F501B75CFCD0006620D /* Scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0F28F4B1B75CFCD0006620D /* Scanner.cpp */; };
+		A0F28F531B75F0180006620D /* Execution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0F28F511B75F0180006620D /* Execution.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +36,8 @@
 		A0F28F4A1B75CFCD0006620D /* Sampling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sampling.h; sourceTree = "<group>"; };
 		A0F28F4B1B75CFCD0006620D /* Scanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scanner.cpp; sourceTree = "<group>"; };
 		A0F28F4C1B75CFCD0006620D /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
+		A0F28F511B75F0180006620D /* Execution.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Execution.cpp; sourceTree = "<group>"; };
+		A0F28F521B75F0180006620D /* Execution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Execution.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +78,8 @@
 				A0F28F4B1B75CFCD0006620D /* Scanner.cpp */,
 				A0F28F4C1B75CFCD0006620D /* Scanner.h */,
 				A0F28F3E1B75CF6E0006620D /* FastMCD.cpp */,
+				A0F28F511B75F0180006620D /* Execution.cpp */,
+				A0F28F521B75F0180006620D /* Execution.h */,
 			);
 			path = FastMCD;
 			sourceTree = "<group>";
@@ -137,6 +142,7 @@
 			files = (
 				A0F28F4F1B75CFCD0006620D /* Sampling.cpp in Sources */,
 				A0F28F3F1B75CF6E0006620D /* FastMCD.cpp in Sources */,
+				A0F28F531B75F0180006620D /* Execution.cpp in Sources */,
 				A0F28F4D1B75CFCD0006620D /* Calculations.cpp in Sources */,
 				A0F28F501B75CFCD0006620D /* Scanner.cpp in Sources */,
 			);
