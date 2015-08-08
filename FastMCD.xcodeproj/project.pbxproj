@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A0F28F3F1B75CF6E0006620D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0F28F3E1B75CF6E0006620D /* main.cpp */; };
+		A0F28F3F1B75CF6E0006620D /* FastMCD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0F28F3E1B75CF6E0006620D /* FastMCD.cpp */; };
+		A0F28F4D1B75CFCD0006620D /* Calculations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0F28F451B75CFCD0006620D /* Calculations.cpp */; };
+		A0F28F4F1B75CFCD0006620D /* Sampling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0F28F491B75CFCD0006620D /* Sampling.cpp */; };
+		A0F28F501B75CFCD0006620D /* Scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0F28F4B1B75CFCD0006620D /* Scanner.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +27,14 @@
 
 /* Begin PBXFileReference section */
 		A0F28F3B1B75CF6E0006620D /* FastMCD */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FastMCD; sourceTree = BUILT_PRODUCTS_DIR; };
-		A0F28F3E1B75CF6E0006620D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		A0F28F3E1B75CF6E0006620D /* FastMCD.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FastMCD.cpp; sourceTree = "<group>"; };
+		A0F28F451B75CFCD0006620D /* Calculations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Calculations.cpp; sourceTree = "<group>"; };
+		A0F28F461B75CFCD0006620D /* Calculations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Calculations.h; sourceTree = "<group>"; };
+		A0F28F471B75CFCD0006620D /* Eigen */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Eigen; sourceTree = "<group>"; };
+		A0F28F491B75CFCD0006620D /* Sampling.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sampling.cpp; sourceTree = "<group>"; };
+		A0F28F4A1B75CFCD0006620D /* Sampling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sampling.h; sourceTree = "<group>"; };
+		A0F28F4B1B75CFCD0006620D /* Scanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scanner.cpp; sourceTree = "<group>"; };
+		A0F28F4C1B75CFCD0006620D /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +67,14 @@
 		A0F28F3D1B75CF6E0006620D /* FastMCD */ = {
 			isa = PBXGroup;
 			children = (
-				A0F28F3E1B75CF6E0006620D /* main.cpp */,
+				A0F28F451B75CFCD0006620D /* Calculations.cpp */,
+				A0F28F461B75CFCD0006620D /* Calculations.h */,
+				A0F28F471B75CFCD0006620D /* Eigen */,
+				A0F28F491B75CFCD0006620D /* Sampling.cpp */,
+				A0F28F4A1B75CFCD0006620D /* Sampling.h */,
+				A0F28F4B1B75CFCD0006620D /* Scanner.cpp */,
+				A0F28F4C1B75CFCD0006620D /* Scanner.h */,
+				A0F28F3E1B75CF6E0006620D /* FastMCD.cpp */,
 			);
 			path = FastMCD;
 			sourceTree = "<group>";
@@ -118,7 +135,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0F28F3F1B75CF6E0006620D /* main.cpp in Sources */,
+				A0F28F4F1B75CFCD0006620D /* Sampling.cpp in Sources */,
+				A0F28F3F1B75CF6E0006620D /* FastMCD.cpp in Sources */,
+				A0F28F4D1B75CFCD0006620D /* Calculations.cpp in Sources */,
+				A0F28F501B75CFCD0006620D /* Scanner.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
