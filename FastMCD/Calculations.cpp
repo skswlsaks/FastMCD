@@ -1,10 +1,18 @@
 #include "Eigen/Dense"
 #include "Calculations.h"
+#include <utility>
+#include <vector>
 
+using namespace std;
 using namespace Eigen;
 
-//typedef MatrixXd<double, Dynamic, Dynamic, RowMajor> Mat;
-
+struct DistancePair {
+    double distance;
+    int index;
+    bool operator < (const DistancePair& dp) const {
+        return distance < dp.distance;
+    }
+};
 
 VectorXd Calculations::Ave(MatrixXd sample) {
     int row = (int) sample.rows();
@@ -35,23 +43,40 @@ MatrixXd Calculations::covariance(MatrixXd sample) {
     return cov;
 }
 
-MatrixXd Calculations::distance(MatrixXd sample) {
+VectorXd Calculations::distance(MatrixXd sample) {
     MatrixXd sub = data - sample;
     MatrixXd cov = covariance(sample);
     cov = cov.inverse();
     MatrixXd subT = sub.transpose();
-    MatrixXd distance = subT * cov * sub;
+    VectorXd distance = subT * cov * sub;
     return distance;
 }
 
-void Calculations::Cstep(MatrixXd d) {
-    int h = (int) 0.75 * d.rows();
-    int k = (int) d.rows() - 1;
-    nth_element(d.data(), d.data()+k, d.data()+d.size());
-
-
-
+MatrixXd Calculations::Cstep(VectorXd d, VectorXi indexes) {
+    int h = (int) (0.75 * d.size());
+    //int k = (int) (d.rows() - 1);
+    //nth_element(d.data(), d.data()+k, d.data()+d.size());
+    
+    // Construct a pair with distance and coresponding indexes
+    DistancePair indexPair;
+    // Store all the pair in vector to sort;
+    vector<DistancePair> vec;
+    for (int i = 0; i < d.rows(); ++i) {
+        indexPair.distance = d(i);
+        indexPair.index = indexes(i);
+        vec.push_back(indexPair);
+    }
+    sort(vec.begin(), vec.end());
+    
+    MatrixXd res(h, data.cols());
+    for (int i = 0; i < h; ++i) {
+        for (int j = 0; j < data.cols(); ++j){
+            res(i,j) = data(vec[i].index, j);
+        }
+    }
+    return res;
 }
+
 
 /*MatrixXd Calculations::eigenVector(MatrixXd *value) {
     EigenSolver<MatrixXd> es(*value);

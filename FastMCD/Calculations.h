@@ -18,9 +18,10 @@ public:
     MatrixXd covariance(MatrixXd sample);
     //MatrixXd eigenVector(MatrixXd *value);
     MatrixXd diagonal(MatrixXd b, double qn);
-    MatrixXd distance(MatrixXd sample);
-    void Cstep(MatrixXd distance);
+    VectorXd distance(MatrixXd sample);
+    MatrixXd Cstep(VectorXd distance, VectorXi indexes);
     ~Calculations();
+    
 };
 
 

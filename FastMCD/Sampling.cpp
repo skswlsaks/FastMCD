@@ -16,7 +16,8 @@ MatrixXd Sampling::randomSample() {
     int count = 0;
     do {
         int tmp = rand() % (data.rows());
-        if (find(indexOfData, indexOfData+p+1, tmp) != indexOfData+p+1) {
+        if (find(indexOfData, indexOfData+p+1, tmp)
+            != indexOfData+p+1) {
             indexOfData[count] = tmp;
             ++count;
         }
@@ -39,6 +40,7 @@ MatrixXd Sampling::addSample(MatrixXd sample) {
     copy(indexOfData, indexOfData+sizeArray, tmp);
     delete [] indexOfData;
     indexOfData = tmp;
+    
     bool cond = true;
     int randNum;
     do {

@@ -16,8 +16,8 @@ void Scanner::split(const string& s, MatrixXd *data, int rowNum) {
 	while(j >= 0) {
 
 		string tmp= s.substr(i, j-i);
-		(*data)(rowNum-1, count) = atof(tmp.c_str());
-		cout << (*data)(rowNum-1, count) << endl;
+		(*data)(rowNum, count) = atof(tmp.c_str());
+		cout << (*data)(rowNum, count) << endl;
 		i = ++j;
 		j = (int) s.find(deliminator, j);
 
@@ -34,20 +34,25 @@ void Scanner::split(const string& s, MatrixXd *data, int rowNum) {
 void Scanner::loadfile(istream& in, MatrixXd *data) {
 	string tmp;
 
-	int rowNum = 1;
-	while (!in.eof()) {
+	int rowNum = 0;
+    istream& intmp = in;
+    
+    // count the row number to resize the matrix
+    while (!in.eof()) {
+        getline(in, tmp, '\n');
+        ++rowNum;
+    }
+    
+    (*data).resize(rowNum, colNum);
+    
+    int rowNumCount = 0;
+    while (!intmp.eof()) {
 
-		getline(in, tmp, '\n');
+		getline(intmp, tmp, '\n');
 
-		split (tmp, data, rowNum);
+		split (tmp, data, rowNumCount);
 
 		tmp.clear();
-		++rowNum;
-		if (!in.eof()) {
-			(*data).resize(rowNum, colNum);
-		}
-
-
 	}
 }
 
