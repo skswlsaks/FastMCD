@@ -3,37 +3,22 @@
 #include <utility>
 #include <vector>
 
+#include <iostream>
+
 using namespace std;
 using namespace Eigen;
 
-struct DistancePair {
-    double distance;
-    int index;
-    bool operator < (const DistancePair& dp) const {
-        return distance < dp.distance;
-    }
-};
 
-VectorXd Calculations::Ave(MatrixXd sample) {
-    int row = (int) sample.rows();
-    int col = (int) sample.cols();
-    double sum = 0;
-    VectorXd res(col);
-    for (int i = 0; i < col; ++i) {
-        for (int j = 0; j < row; ++j) {
-            sum += sample(j, i);
-        }
-        res(col) = sum/row;
-    }
-    return res;
+
+MatrixXd Calculations::ave(MatrixXd sample) {
+    return sample.colwise().mean();
 }
 
-MatrixXd Calculations::covariance(MatrixXd sample) {
+MatrixXd Calculations::covarianceMatrix(MatrixXd sample) {
     MatrixXd cov;
     double det;
     do {
-        MatrixXd centered = sample.rowwise() - sample.colwise().mean();
-        cov = (centered.adjoint() * centered) / double(sample.rows() - 1);
+        cov = covariance(sample);
         det = cov.determinant();
         if (det == 0) {
             Sampling s;
@@ -43,26 +28,28 @@ MatrixXd Calculations::covariance(MatrixXd sample) {
     return cov;
 }
 
-VectorXd Calculations::distance(MatrixXd sample) {
-    MatrixXd sub = data - sample;
-    MatrixXd cov = covariance(sample);
+MatrixXd Calculations::distance(MatrixXd sample) {
+    MatrixXd sub = data.rowwise() - sample.colwise().mean();
+    MatrixXd cov = covarianceMatrix(sample);
     cov = cov.inverse();
-    MatrixXd subT = sub.transpose();
-    VectorXd distance = subT * cov * sub;
+    MatrixXd distance(sub.rows(), 1);
+    for (int i = 0; i < sub.rows(); ++i) {
+        MatrixXd tmp = sub.row(i);
+        distance.row(i) = tmp * cov * tmp.transpose();
+    }
     return distance;
 }
 
-pair<MatrixXd, VectorXi> Calculations::Cstep(VectorXd d, VectorXi indexes) {
-    int h = (int) (0.75 * d.size());
-    //int k = (int) (d.rows() - 1);
-    //nth_element(d.data(), d.data()+k, d.data()+d.size());
+pair<MatrixXd, VectorXi> Calculations::Cstep(MatrixXd d, VectorXi indexes) {
+    int h = (int) (0.75 * d.rows());
     
     // Construct a pair with distance and coresponding indexes
-    DistancePair indexPair;
+
     // Store all the pair in vector to sort;
     vector<DistancePair> vec;
     for (int i = 0; i < d.rows(); ++i) {
-        indexPair.distance = d(i);
+        DistancePair indexPair;
+        indexPair.distance = d(i,0);
         indexPair.index = indexes(i);
         vec.push_back(indexPair);
     }
@@ -86,6 +73,13 @@ pair<MatrixXd, VectorXi> Calculations::Cstep(VectorXd d, VectorXi indexes) {
     return resultPair;
 }
 
+vector<DistancePair> Calculations::Cstep2(vector<DistancePair> dp) {
+    int h = (int) (0.75 * dp.size());
+    sort(dp.begin(), dp.end());
+    dp.resize(h);
+    return dp;
+}
+
 
 /*MatrixXd Calculations::eigenVector(MatrixXd *value) {
     EigenSolver<MatrixXd> es(*value);
@@ -98,5 +92,13 @@ MatrixXd Calculations::diagonal(MatrixXd b, double qn) {
     return b;
 }
 
-
+MatrixXd Calculations::covariance(MatrixXd s) {
+    MatrixXd centered = s.rowwise() - s.colwise().mean();
+    MatrixXd sum(s.cols(), s.cols());
+	for (int i = 0; i < s.rows(); ++i) {
+		MatrixXd tmp = centered.row(i);
+		sum += tmp.transpose() * tmp;
+	}
+	return sum/ double(s.rows()-1);
+}
 

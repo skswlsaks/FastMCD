@@ -15,7 +15,7 @@ public:
 	Sampling(MatrixXd m);
 
 	MatrixXd addSample(MatrixXd sample);
-    MatrixXd randomSample();
+    MatrixXd randomSample(int p);
 	//double Qn(VectorXd& y);
 	//VectorXd calculateQn();
 	~Sampling (){};

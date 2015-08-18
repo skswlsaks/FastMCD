@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 #include "Eigen/Dense"
+#include <vector>
+#include "Calculations.h"
 
 using namespace Eigen;
 
@@ -13,7 +15,10 @@ public:
     Execution () {};
     
     void step4();
+    void step42();
+    void step5();
     
+    MatrixXd constructMatrixWithIndex(vector<DistancePair> dp);
     
     ~Execution () {};
 };

@@ -1,4 +1,5 @@
 #include "Sampling.h"
+#include <iostream>
 
 using namespace Eigen;
 using namespace std;
@@ -11,17 +12,22 @@ Sampling::Sampling (MatrixXd m) {
     indexOfData = new int[data.cols()+1];
 }
 
-MatrixXd Sampling::randomSample() {
-	int p = (int) data.cols();
+MatrixXd Sampling::randomSample(int p) {
+	indexOfData = new int[p+1];
+	for (int i = 0; i < p+1; ++i) {
+		indexOfData[i] = -1;
+	}
+
     int count = 0;
     do {
+    	srand((int) time(0));
         int tmp = rand() % (data.rows());
         if (find(indexOfData, indexOfData+p+1, tmp)
-            != indexOfData+p+1) {
+        	== indexOfData+p+1) {
             indexOfData[count] = tmp;
             ++count;
         }
-    } while (count != p+1);
+    } while (count < p+1);
 
     MatrixXd sample(p+1, p);
     for (int i = 0; i < p+1; ++i) {
@@ -34,47 +40,32 @@ MatrixXd Sampling::randomSample() {
 }
 
 MatrixXd Sampling::addSample(MatrixXd sample) {
-    // expand array by copying memory
-    int sizeArray = (sizeof(indexOfData)/sizeof(*indexOfData)) + 1;
+	// expand array by copying memory
+    int sizeArray = (sizeof(indexOfData)/sizeof(*indexOfData)) + 2;
+
     int *tmp = new int[sizeArray];
     copy(indexOfData, indexOfData+sizeArray, tmp);
     delete [] indexOfData;
     indexOfData = tmp;
-    
+
     bool cond = true;
     int randNum;
     do {
+    	srand((int) time(0));
         randNum = rand() % (data.rows());
-        if (find(indexOfData, indexOfData+sizeArray, randNum) != indexOfData+sizeArray) {
-            *(indexOfData + sizeArray - 1) = 0;
+
+        if (find(indexOfData, indexOfData+sizeArray, randNum) == indexOfData+sizeArray) {
+            *(indexOfData + sizeArray - 1) = randNum;
             cond = false;
         }
     } while (cond);
+
+
     int row = (int) sample.rows();
     int col = (int) sample.cols();
-    sample.resize(row+1, col);
+    sample.conservativeResize(row+1, col);
     for (int i = 0; i < col; ++i){
         sample(row, i) = data(randNum, i);
     }
     return sample;
 }
-
-
-/*double Sampling::Qn(VectorXd& y) {
-    // Copy from r c++ package;
-    return 0;
-}*/
-
-
-/*VectorXd Sampling::calculateQn() {
-    VectorXd qn(data.cols());
-    VectorXd y(data.rows());
-    for (int j = 0; j < data.cols(); ++j) {
-        for (int i = 0; i < data.rows(); ++i) {
-            y(i) = data(i,j);
-        }
-        qn(j) = Qn(y);
-    }
-    return qn;
-}*/
-

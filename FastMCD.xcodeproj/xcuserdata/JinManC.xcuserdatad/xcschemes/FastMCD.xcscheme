@@ -58,6 +58,12 @@
             ReferencedContainer = "container:FastMCD.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "/Users/JinManC/Documents/Infosys/ydata-labeled-time-series-anomalies-v1_0/A1Benchmark/real_3.csv"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

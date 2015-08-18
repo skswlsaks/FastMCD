@@ -7,35 +7,39 @@ using namespace std;
 using namespace Eigen;
 
 
-void Scanner::split(const string& s, MatrixXd *data, int rowNum) {
+void Scanner::split(const string& s, int rowNum) {
 
 	int count = 0;
 	int i = 0;
 	int j = (int) s.find(deliminator);
 
-	while(j >= 0) {
+	i = ++j;
+	j = (int) s.find(deliminator, j);
+
+
+	while (count < colNum) {
 
 		string tmp= s.substr(i, j-i);
-		(*data)(rowNum, count) = atof(tmp.c_str());
-		cout << (*data)(rowNum, count) << endl;
+
+		data (rowNum, count) = atof(tmp.c_str());
+
 		i = ++j;
 		j = (int) s.find(deliminator, j);
 
 		++count;
 
-//		if (j < 0) {
-//			double ss = atof(s.substr(i, j-i).c_str());
-//			(*data)(rowNum-1, count) = ss;
-//		}
-
 	}
 }
 
-void Scanner::loadfile(istream& in, MatrixXd *data) {
+void Scanner::loadfile(char **argv) {
 	string tmp;
 
+	ifstream in (argv[1]);
+
+	if (!in)
+		cout << "ERROR Loading file!" << endl;
+
 	int rowNum = 0;
-    istream& intmp = in;
     
     // count the row number to resize the matrix
     while (!in.eof()) {
@@ -43,16 +47,23 @@ void Scanner::loadfile(istream& in, MatrixXd *data) {
         ++rowNum;
     }
     
-    (*data).resize(rowNum, colNum);
-    
+    ifstream intmp(argv[1]);
+
+    data.resize(rowNum - 2, colNum);
+
     int rowNumCount = 0;
+
+	getline(intmp, tmp, '\n');
     while (!intmp.eof()) {
+    	if (rowNumCount == rowNum - 2) break;
 
 		getline(intmp, tmp, '\n');
 
-		split (tmp, data, rowNumCount);
+		split (tmp, rowNumCount);
 
 		tmp.clear();
+
+		++rowNumCount;
 	}
 }
 
@@ -62,33 +73,10 @@ int Scanner::file(int argc, char **argv) {
 	if (argc < 2)
 			return -1;
 
-	ifstream in (argv[1]);
 
-	if (!in)
-		return -1;
+	data.resize(1, colNum);
 
-//	string tmp;
-//	char *tok;
-//	int count = 0;
-//	getline(in, tmp, '\n');
-//	tok = strtok(*tmp.c_str(), deliminator);
-//	while (tok != NULL) {
-//		tok = strtok(NULL, ';');
-//		++count;
-//	}
-
-	MatrixXd *data = new MatrixXd;
-	(*data).resize(1, colNum);
-
-	loadfile(in, data);
-
-		// Do Something;
-
-//	for (vector<double*>::iterator p = data.begin();
-//		 p != data.end(); p++) {
-//		delete[] *p;
-//	}
-	delete data;
+	loadfile(argv);
 
 	return 0;
 }
